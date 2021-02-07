@@ -3,27 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://liu-moon.github.io/post/liuiu/</loc>
-    <lastmod>2021-02-07T18:35:23+08:00</lastmod>
+    <loc>https://liu-moon.github.io/content/</loc>
+    <lastmod>2021-02-07T18:44:17+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://liu-moon.github.io/</loc>
+    <lastmod>2021-02-07T18:44:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liu-moon.github.io/content/zh/homepage/quy/</loc>
+    <lastmod>2021-02-07T18:44:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://liu-moon.github.io/posts/liuiu/</loc>
     <lastmod>2021-02-07T18:35:23+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liu-moon.github.io/post/</loc>
+    <loc>https://liu-moon.github.io/posts/</loc>
     <lastmod>2021-02-07T18:35:23+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liu-moon.github.io/post/commit/</loc>
+    <loc>https://liu-moon.github.io/posts/commit/</loc>
     <lastmod>2021-02-07T18:29:18+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liu-moon.github.io/post/helloworld/</loc>
+    <loc>https://liu-moon.github.io/posts/helloworld/</loc>
     <lastmod>2021-02-07T17:51:28+08:00</lastmod>
   </url>
   
