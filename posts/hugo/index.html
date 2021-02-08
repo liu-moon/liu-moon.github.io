@@ -79,7 +79,7 @@
     },
     "headline": "Hugo | Eureka Demo","datePublished": "2021-02-08T08:38:09+08:00",
     "dateModified": "2021-02-08T08:38:09+08:00",
-    "wordCount":  15 ,
+    "wordCount":  18 ,
     "publisher": {
         "@type": "Person",
         "name": "C. Wang",
@@ -203,7 +203,7 @@
 
 <div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
     <div
-        class="col-span-2 lg:col-start-2 lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
         <h1 class="font-bold text-3xl text-primary-text">Hugo</h1>
         <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
@@ -238,6 +238,9 @@
 <p><img src="https://i.loli.net/2021/02/08/exd7BLovt3KcZX2.jpg" alt=""></p>
 <h2 id="插入公式">插入公式</h2>
 <p>$y=4x^2$</p>
+<h2 id="目录">目录</h2>
+<pre><code>toc: true
+</code></pre>
         </div>
         
         
@@ -258,6 +261,32 @@
     </div>
 </div>
 
+        
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">On This Page</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#新建文章">新建文章</a></li>
+    <li><a href="#主页简介">主页简介</a></li>
+    <li><a href="#编译生成网页">编译生成网页</a></li>
+    <li><a href="#插入图片">插入图片</a></li>
+    <li><a href="#插入公式">插入公式</a></li>
+    <li><a href="#目录">目录</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
         
     </div>
     
