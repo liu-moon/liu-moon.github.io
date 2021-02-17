@@ -8,7 +8,16 @@
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Tue, 09 Feb 2021 08:27:58 +0800</lastBuildDate><atom:link href="https://liu-moon.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Feb 2021 09:12:16 +0800</lastBuildDate><atom:link href="https://liu-moon.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java</title>
+      <link>https://liu-moon.github.io/posts/java/</link>
+      <pubDate>Wed, 17 Feb 2021 09:12:16 +0800</pubDate>
+      
+      <guid>https://liu-moon.github.io/posts/java/</guid>
+      <description>idea常用快捷键    快捷键 解释     Ctrl+Shift+/ 多行注释    </description>
+    </item>
+    
     <item>
       <title>AD</title>
       <link>https://liu-moon.github.io/posts/ad/</link>
