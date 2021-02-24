@@ -50,7 +50,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://liu-moon.github.io/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_2.png">
 
 <meta name="description"
-  content="Eureka is a elegant and powerful theme for Hugo.">
+  content="Java Learing">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
     },
     "headline": "Java | Quy\u0027s blog","datePublished": "2021-02-17T09:12:16+08:00",
     "dateModified": "2021-02-17T09:12:16+08:00",
-    "wordCount":  387 ,
+    "wordCount":  849 ,
     "publisher": {
         "@type": "Person",
         "name": "C. Wang",
@@ -88,7 +88,7 @@
             "url": "https://liu-moon.github.io/images/icon.png"
         }
         },
-    "description": "Eureka is a elegant and powerful theme for Hugo."
+    "description": "\u003ch1 id=\u0022java-learing\u0022\u003eJava Learing\u003c\/h1\u003e"
 }
 </script><meta property="og:title" content="Java | Quy&#39;s blog" />
 <meta property="og:type" content="article" />
@@ -102,7 +102,7 @@
 
 
 
-<meta property="og:description" content="" />
+<meta property="og:description" content="Java Learing" />
 
 
 
@@ -212,7 +212,7 @@
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>2 min read</span>
+        <span>4 min read</span>
     </div>
     
     
@@ -224,7 +224,8 @@
         
 
         <div class="content">
-            <h1 id="idea常用快捷键">idea常用快捷键</h1>
+            <h1 id="java-learing">Java Learing</h1>
+<h1 id="idea常用快捷键">idea常用快捷键</h1>
 <table>
 <thead>
 <tr>
@@ -248,6 +249,10 @@
 <tr>
 <td>Shift+Tab</td>
 <td>取消缩进</td>
+</tr>
+<tr>
+<td>Alt + insert</td>
+<td>快速生成构造方法和getXXX(),setXXX()方法</td>
 </tr>
 </tbody>
 </table>
@@ -432,6 +437,252 @@ public class phone {
         p.call(&quot;蓁蓁&quot;);
         p.sendMessage();
         p.playGame();
+    }
+}
+</code></pre>
+<h1 id="privatethis">private&amp;this</h1>
+<pre><code class="language-java">/*
+    定义一个学生类, 用来演示this关键字
+ */
+public class Student {
+    //成员变量
+    private int age = 20;
+
+    //设置年龄
+    public void setAge(int age) { // age = 50;
+        this.age = age;
+    }
+
+    //获取年龄
+    public int getAge() {
+        return age;
+    }
+
+    //为了让你更好的理解this的作用, 先做一个测试题.
+    public void show() {
+        //局部变量
+        int age = 10;
+
+        System.out.println(age);   //10
+        System.out.println(this.age);   //20 ?
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class TestStudent {
+    public static void main(String[] args) {
+        //需求1: 调用show()方法
+
+        Student stu = new Student();
+        stu.show();
+        System.out.println(&quot;--------------&quot;);
+
+
+        //需求2: 按照格式, 优化setAge()中的参数名, 并调用.
+        //设置年龄
+        stu.setAge(50);
+        //获取年龄
+        System.out.println(stu.getAge());
+    }
+}
+</code></pre>
+<h1 id="构造方法">构造方法</h1>
+<ul>
+<li>
+<p>作用: 用来初始化对象的.</p>
+</li>
+<li>
+<p>格式:</p>
+<p>​      修饰符 构造方法名(参数列表) {</p>
+<p>​        //方法体</p>
+<p>​      }</p>
+</li>
+<li>
+<p>要求:</p>
+<p>​      构造方法名必须和类名相同(包括大小写)</p>
+<p>​      构造方法没有返回值(但是里边可以写return)</p>
+<p>​      构造方法没有返回值类型(连void都不能写)</p>
+</li>
+<li>
+<p>注意:</p>
+<p>​      若未提供任何构造方法，系统会给出默认无参构造</p>
+<p>​      若已提供任何构造方法，系统不再提供无参构造</p>
+<p>​      构造方法可以重载</p>
+</li>
+</ul>
+<pre><code class="language-java">/*
+    定义一个学生类
+ */
+public class Student {
+    //构造方法
+    //无参构造
+    public Student() { }
+
+    //带参构造
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    //成员变量
+    private String name;
+    private int age;
+
+    //设置姓名
+    public void setName(String name) {
+        this.name = name;
+    }
+    //获取姓名
+    public String getName() {
+        return name;
+    }
+
+    //设置年龄
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    //获取年龄
+    public int getAge() {
+        return age;
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class TestStudent {
+    public static void main(String[] args) {
+        //需求: 定义一个姓名叫: 张三, 年龄为: 23 的学生
+        //格式一: 通过无参构造实现.
+        Student stu = new Student();
+        stu.setName(&quot;张三&quot;);
+        stu.setAge(23);
+
+        System.out.println(stu.getName());
+        System.out.println(stu.getAge());
+        System.out.println(&quot;--------------------&quot;);
+
+        //格式二: 通过构造方法实现快速初始化.
+        Student stu2 = new Student(&quot;李四&quot;, 24);
+        System.out.println(stu2.getName());
+        System.out.println(stu2.getAge());
+
+    }
+}
+</code></pre>
+<h1 id="javabean类">JavaBean类</h1>
+<pre><code class="language-java">/*
+    定义一个标准的JavaBean类
+ */
+public class Student {
+    //成员变量, 全部用private修饰.
+    //姓名
+    private String name;
+    //年龄
+    private int age;
+
+    //构造方法, 无参构造, 全参构造
+    public Student() {}
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    //公共的访问方式: getXXX(), setXXX()
+    //设置姓名
+    public void setName(String name) {
+        this.name = name;
+    }
+    //获取姓名
+    public String getName() {
+        return name;
+    }
+    //设置年龄
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    //获取年龄
+    public int getAge() {
+        return age;
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class TestStudent {
+    public static void main(String[] args) {
+        //需求: 通过空参创建对象.
+        Student stu1 = new Student();
+        stu1.setName(&quot;张无忌&quot;);
+        stu1.setAge(23);
+        System.out.println(stu1.getName());
+        System.out.println(stu1.getAge());
+        System.out.println(&quot;-------------------&quot;);
+
+        //需求: 通过全参创建对象.
+        Student stu2 = new Student(&quot;韦小宝&quot;, 40);
+        System.out.println(stu2.getName());
+        System.out.println(stu2.getAge());
+    }
+}
+</code></pre>
+<h1 id="继承">继承</h1>
+<p>Java中, 子类只能继承父类的非私有成员(成员变量, 成员方法)</p>
+<pre><code class="language-java">//定义一个父类: Parent
+public class Parent {
+    //成员变量
+    private String name;
+    private int age;
+
+    //快捷键: alt + insert, 快速生成构造方法和getXXX(),setXXX()方法.
+    //构造方法
+    public Parent() {
+    }
+
+    public Parent(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    //getXXX()和setXXX()方法
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
+</code></pre>
+<pre><code class="language-java">/*
+    Child: 子类, 派生类
+    Parent: 父类, 基类, 超类
+ */
+public class Child extends Parent {
+}
+</code></pre>
+<pre><code class="language-java">//测试类
+public class Test {
+    //main函数是程序的主入口, 所有的代码都是从这里开始执行的.
+    public static void main(String[] args) {
+        //创建Child类的对象
+        Child c = new Child();
+
+        //给对象c的姓名设置为: 张三.
+        c.setName(&quot;张三&quot;);
+        //c.name = &quot;李四&quot;;
+
+        //打印姓名的值
+        System.out.println(c.getName());
+
+        /*
+            Java中, 子类只能继承父类的非私有成员(成员变量, 成员方法)
+         */
     }
 }
 </code></pre>
