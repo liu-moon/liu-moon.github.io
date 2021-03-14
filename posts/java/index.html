@@ -79,7 +79,7 @@
     },
     "headline": "Java | Quy\u0027s blog","datePublished": "2021-02-17T09:12:16+08:00",
     "dateModified": "2021-02-17T09:12:16+08:00",
-    "wordCount":  1403 ,
+    "wordCount":  2860 ,
     "publisher": {
         "@type": "Person",
         "name": "C. Wang",
@@ -212,7 +212,7 @@
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>7 min read</span>
+        <span>14 min read</span>
     </div>
     
     
@@ -253,6 +253,10 @@
 <tr>
 <td>Alt + insert</td>
 <td>快速生成构造方法和getXXX(),setXXX()方法</td>
+</tr>
+<tr>
+<td>Alt + enter</td>
+<td>重写方法</td>
 </tr>
 </tbody>
 </table>
@@ -1080,7 +1084,735 @@ public class Mouse extends Animal {
     }
 }
 </code></pre>
-<p>学到123</p>
+<h3 id="测试多态关系中成员变量的使用">测试多态关系中，成员变量的使用</h3>
+<pre><code class="language-java">/*
+    需求: 测试多态关系中, 成员变量的使用.
+
+    结论:
+        多态关系中, 成员变量是不涉及到重写的.
+        简单记忆:
+            多态关系中, 使用成员变量, 遵循&quot;编译看左, 运行看左&quot;.
+                编译看左: 意思是在编译期间会看左边的类型有没有这个成员, 没有就报错, 有就不报错.
+                运行看左: 意思是在运行期间使用的是 左边的类型中的这个成员.
+ */
+public class Test {
+    public static void main(String[] args) {
+        //通过多态的方式创建对象, 然后测试成员变量的使用.
+        //多态: 父类引用指向子类对象
+        Animal an = new Dog();
+        System.out.println(an.name);
+
+        //通过普通方式创建对象, 然后测试
+        Dog dog = new Dog();
+        System.out.println(dog.name);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//父类, 动物类
+public class Animal {
+    String name = &quot;Animal&quot;;
+}
+</code></pre>
+<pre><code class="language-java">//子类, 狗类
+public class Dog extends Animal{
+    String name = &quot;Dog&quot;;
+}
+</code></pre>
+<h3 id="多态的好处与弊端-类型转换">多态的好处与弊端 类型转换</h3>
+<pre><code class="language-java">/*
+   需求:
+        多态的好处:
+            可维护性.
+            可扩展性.
+        多态的弊端:
+            父类引用不能使用子类的特有成员.
+
+            解决方案:
+                通过&quot;类型转换&quot;实现.
+            注意:
+                只能在继承层次内进行转换, 否则会报ClassCastException异常
+                将父类对象转换成子类之前，使用instanceof进行检查
+                instanceof关键字的用法:
+                    对象名 instanceof 数据类型
+                   意思是判断前边的对象是否是后边的数据类型.
+ */
+public class Test {
+    public static void main(String[] args) {
+        //需求: 通过多态创建对象, 调用子类中的成员.
+        Animal an = new Dog();
+
+        //调用eat()方法
+        an.eat();
+
+        //调用watch()方法, 属于子类独有的方法.
+        //an.watch();
+        //正确的写法
+        /*Dog dog = (Dog)an;
+        dog.watch();*/
+
+        //不正常的转换.
+        //Cat c = (Cat)an;
+
+        //优化后的方案: 判断当前对象是否是Dog类的对象, 如果是, 再调用watch()方法.
+        if(an instanceof Dog) { //判断an是否是Dog类的对象
+            //能走到这里, 说明条件满足
+            Dog dog = (Dog)an;
+            dog.watch();
+        }
+    }
+}
+</code></pre>
+<pre><code class="language-java">//父类, 动物类
+public class Animal {
+    public void eat() {
+        System.out.println(&quot;吃饭&quot;);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//子类, 狗类
+public class Dog extends Animal {
+    @Override
+    public void eat() {
+        System.out.println(&quot;狗吃骨头&quot;);
+    }
+
+    //狗类独有的方法, 父类中是没有这个成员方法的.
+    public void watch() {
+        System.out.println(&quot;狗会看家&quot;);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//子类, 猫类.
+public class Cat extends Animal {
+}
+</code></pre>
+<h2 id="抽象类">抽象类</h2>
+<pre><code class="language-java">
+/*
+    抽象类解释:
+        有抽象方法的类就是抽象类, 用abstract关键字修饰.
+
+    抽象方法解释:
+        没有方法体的方法就是抽象方法, 用abstract关键字修饰.
+
+    抽象方法的由来:
+        当需要定义一个方法，却不明确方法的具体实现时，可以将方法定义为abstract，具体实现延迟到子类
+
+ */
+
+public class Test {
+    public static void main(String[] args) {
+        //测试狗类
+        Dog dog = new Dog();
+        dog.eat();
+        //测试老鼠类
+        Mouse mouse = new Mouse();
+        mouse.eat();
+        System.out.println(&quot;-------------------&quot;);
+        //通过多态进行测试.
+        Animal an = new Dog();
+        an.eat();
+
+
+    }
+}
+</code></pre>
+<pre><code class="language-java">//父类, 动物类(抽象类)
+public abstract class Animal {
+    //抽象方法(特点: 要求子类必须重写)
+    public abstract void eat() ;
+}
+</code></pre>
+<pre><code class="language-java">//子类, 狗类
+public class Dog extends Animal {
+    //alt + enter: 快捷键, 自动帮你重写方法
+    @Override
+    public void eat() {
+        System.out.println(&quot;狗吃骨头&quot;);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//子类, 老鼠类
+public class Mouse extends Animal {
+    @Override
+    public void eat() {
+        System.out.println(&quot;老鼠吃奶酪&quot;);
+    }
+}
+</code></pre>
+<h3 id="抽象类的特点">抽象类的特点</h3>
+<pre><code class="language-java">/*
+    抽象类的特点:
+        1. 抽象类和抽象方法必须用abstract关键字修饰.
+        2. 抽象方法不能实例化.
+           那抽象类怎么实例化呢?
+           答: 通过创建其子类对象来完成初始化操作.
+       3. 抽象类的子类:
+            如果是普通类, 则必须重写所有的抽象方法.
+            如果是抽象类, 则不用重写抽象方法.
+
+   抽象类的成员特点:
+      1. 可以有普通的成员变量, 也可以有成员常量.
+      2. 可以有抽象方法, 也可以有非抽象方法.
+      3. 有构造方法, 并且构造方法还可以重载.
+
+      总结:
+        抽象类中的成员比普通类多一种: 抽象方法.
+        其他和普通类一样.
+ */
+public class Test {
+    public static void main(String[] args) {
+        //抽象类不能new(抽象类不能实例化)
+        //Animal an = new Animal();  这样写是错误的.
+
+        //初始化抽象类
+        Animal an = new Cat();
+        System.out.println(&quot;------------------------&quot;);
+
+        //抽象类的成员特点
+        an.name = &quot;汤姆&quot;;
+        System.out.println(an.name);
+
+        //an.AGE = 50; 代码会报错, 原因是因为常量的值不能发生改变.
+        System.out.println(an.AGE);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//父类, 动物类(抽象类)
+public abstract class Animal {
+    //构造方法
+    public Animal() {}
+
+    public Animal(String name){
+        this.name = name;
+    }
+
+    //成员变量: 其值可以变化
+    String name = &quot;哈士奇&quot;;
+    //成员常量: 其值不能发生改变
+    final int AGE = 30;
+
+    //吃
+    public abstract void eat();
+
+    //睡
+    public abstract void sleep();
+
+    public void call() {
+        System.out.println(&quot;动物会叫&quot;);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//子类, 猫类
+public class Cat extends Animal {
+    @Override
+    public void eat() {
+        System.out.println(&quot;猫吃鱼&quot;);
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println(&quot;猫躺着睡&quot;);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//子类, 狗类
+public abstract class Dog extends Animal {
+}
+</code></pre>
+<h3 id="抽象类的构造方法">抽象类的构造方法</h3>
+<pre><code class="language-java">/*
+    需求：
+        开发团队中有程序员和经理两种角色，他们都有姓名、工资、工号等属性，都有工作的行为，
+        经理还有奖金属性。请使用继承思想设计出上述需求中的类，并分别创建对象使用。
+    父类Employee
+	    name，salary，id；work();
+	程序员类Coder，继承Employee，属性和行为：
+	    work();
+    经理类Manager，继承Employee，属性和行为：
+	    bonus; work();
+ */
+public class Test {
+    public static void main(String[] args) {
+        //测试程序猿类
+        Employee em = new Coder();
+        em.work();
+
+        //测试经理类
+        Employee em2 = new Manager();
+        em2.work();
+        System.out.println(&quot;------------------&quot;);
+
+        //扩展内容, 快速实例化对象
+        //需求: 创建一个姓名叫张三, 工资为30000, 工号为: 研发部007的程序猿.
+       /* Coder c = new Coder();
+        c.setName(&quot;张三&quot;);
+        c.setSalary(30000);
+        c.setId(&quot;研发部007&quot;);*/
+       Coder c = new Coder(&quot;张三&quot;,30000,&quot;研发部07&quot;);
+        System.out.println(&quot;姓名: &quot; + c.getName());
+        System.out.println(&quot;工资: &quot; + c.getSalary());
+        System.out.println(&quot;工号: &quot; + c.getId());
+        System.out.println(&quot;----------------------&quot;);
+
+        //需求: 创建一个名字叫: 李四, 工资为: 40000, 工号为: 研发部01, 奖金为100000 的经理
+        Manager m = new Manager(&quot;李四&quot;,40000,&quot;研发部01&quot;,100000);
+        System.out.println(&quot;姓名: &quot; + m.getName());
+        System.out.println(&quot;工资: &quot; + m.getSalary());
+        System.out.println(&quot;工号: &quot; + m.getId());
+        System.out.println(&quot;奖金: &quot; + m.getBonus());
+    }
+}
+</code></pre>
+<pre><code class="language-java">//父类, 员工类
+public abstract class Employee {
+    //成员变量
+    //姓名
+    private String name;
+    //工资
+    private double salary;
+    //工号
+    private String id;
+
+    //构造方法
+    public Employee() {
+    }
+
+    public Employee(String name, double salary, String id) {
+        this.name = name;
+        this.salary = salary;
+        this.id = id;
+    }
+
+    //getXxx(), setXxx()
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    //成员方法
+    //工作
+    public abstract void work();
+}
+</code></pre>
+<pre><code class="language-java">//子类, 程序猿类
+public class Coder extends Employee {
+    //小细节: 在实际开发中, 子类一般都有两个构造方法.
+    //子类的空参构造访问父类的空参构造.
+    //子类的全参构造访问父类的全参构造
+    public Coder() {
+        super();
+    }
+
+    public Coder(String name, double salary, String id) {
+        super(name, salary, id);
+    }
+
+    @Override
+    public void work() {
+        System.out.println(&quot;程序猿要敲代码&quot;);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//子类, 经理类
+public class Manager extends Employee {
+    public Manager() {
+       
+    }
+
+    public Manager(String name, double salary, String id, int bonus) {
+        super(name, salary, id);
+        this.bonus = bonus;
+    }
+
+    //奖金
+    private int bonus;
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+
+    @Override
+    public void work() {
+        System.out.println(&quot;经理喝着茶翘着二郎腿看着程序猿写代码&quot;);
+    }
+}
+</code></pre>
+<h2 id="final关键字">final关键字</h2>
+<pre><code class="language-java">/*
+    final关键字:
+        final这个单词是&quot;最终&quot;的意思, 在Java中是一个关键字, 可以用来修饰类, 成员变量, 成员方法.
+        修饰的类:   不能被继承, 但是可以继承其他的类.
+        修饰的方法: 不能被重写.
+        修饰的变量: 是一个常量, 值只能设置一次.
+
+ */
+public class Test {
+    public static void main(String[] args) {
+        Employee em = new Coder();
+        em.show();
+        System.out.println(&quot;------------------------&quot;);
+
+        //final修饰的变量:  基本类型的变量, 是值不能改变.
+        final int NUM = 20;
+        //NUM = 30;  代码报错, 常量值只能设置一次.
+        System.out.println(NUM);
+        System.out.println(&quot;------------------------&quot;);
+        //final修饰的变量:  引用类型的变量, 是地址值不能改变,但是属性值可以发生变化.
+        final Employee em2 = new Employee();
+        //em2 = new Employee();  代码报错, 原因是因为只要new就会开辟新空间.
+        em2.name = &quot;张三&quot;;
+        em2.age = 23;
+        System.out.println(&quot;name属性值: &quot; + em2.name);
+        System.out.println(&quot;age属性值: &quot; + em2.age);
+        System.out.println(&quot;-----------------------------&quot;);
+
+        em2.name = &quot;张无忌&quot;;
+        em2.age = 53;
+        System.out.println(&quot;name属性值: &quot; + em2.name);
+        System.out.println(&quot;age属性值: &quot; + em2.age);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//人类
+public class Person {
+}
+</code></pre>
+<pre><code class="language-java">//员工类
+public class Employee/* extends Person*/ {
+    //成员变量
+    String name;
+    int age;
+
+    public final void show() {
+        System.out.println(&quot;这个是绝密文件&quot;);
+    }
+}
+</code></pre>
+<pre><code class="language-java">//程序员类
+public class Coder extends Employee{
+   /* @Override
+    public void show() {
+        System.out.println(&quot;这个是垃圾文件&quot;);
+    }*/
+}
+</code></pre>
+<h2 id="static关键字">static关键字</h2>
+<pre><code class="language-java">/*
+    static关键字:
+        该单词是&quot;静态&quot;的意思, 可以用来修饰成员变量和成员方法.
+        关于static修饰的成员变量:
+            该变量叫静态变量(类变量), 静态变量被该类下所有的对象所共享.
+        静态成员的调用方式:
+            可以通过 类名. 的形式直接调用.
+    需求: 定义研发部成员类，让每位成员进行自我介绍
+        Developer类:
+            成员变量: 姓名name, 工作内容work, 部门名字departmentName
+            成员方法: 进行自我介绍的方法selfIntroduction();
+ */
+public class Test {
+    public static void main(String[] args) {
+        //需求: 创建两个员工, 然后测试
+        Developer d1 = new Developer();
+        d1.name = &quot;小黑&quot;;
+        d1.work = &quot;写代码&quot;;
+        d1.selfIntroduction();
+
+        Developer d2 = new Developer();
+        d2.name = &quot;媛媛&quot;;
+        d2.work = &quot;鼓励师&quot;;
+        d2.selfIntroduction();
+        System.out.println(&quot;---------------------&quot;);
+        //随着公司的发展, 部门名字要进行调整, 改为: 开发部
+        //Developer.departmentName = &quot;开发部&quot;;
+
+        d1.selfIntroduction();
+        d2.selfIntroduction();
+    }
+}
+</code></pre>
+<pre><code class="language-java">//开发者类
+public class Developer {
+    //成员变量
+    //姓名
+    String name;
+    //工作内容
+    String work;
+    //部门名(公共的静态常量)
+    public final static String DEPARTMENT_NAME = &quot;研发部&quot;;      //应该用static修饰
+
+    //成员方法
+    //自我介绍
+    public void selfIntroduction() {
+        System.out.println(&quot;我是&quot;+ DEPARTMENT_NAME +&quot;的&quot;+ name +&quot;, 我的工作内容是&quot; + work);
+    }
+}
+</code></pre>
+<h3 id="static修饰成员方法">static修饰成员方法</h3>
+<pre><code class="language-java">/*
+    static修饰成员方法
+    静态方法：
+        静态方法中没有对象this，所以不能访问非静态成员
+    静态方法的使用场景
+        如果某方法只访问静态成员, 并且不需要通过 对象名. 的形式调用, 就可以考虑将其定义为: 静态方法.
+
+    需求：定义静态方法，反转数组中的元素
+        核心:
+            1. 其实就是arr[i]  和 arr[arr.length - 1 - i] 在交换.
+            2. 循环次数只需要执行数组长度的一般就可以了, 也就是: arr.length/2
+  */
+public class Test {
+    public static void main(String[] args) {
+        //测试show()方法
+        ReverseArray.show();
+
+        //小需求: 交换变量.
+        int a = 10;
+        int b = 20;
+        int temp = a;   //temp=10, a=10, b=20
+        a = b;          //temp=10, a=20, b=20
+        b = temp;       //temp=10, a=20, b=10
+        System.out.println(&quot;a: &quot; + a);
+        System.out.println(&quot;b: &quot; + b);
+
+        System.out.println(&quot;-------------------------&quot;);
+        int[] arr = {1, 6, 4, 5, 2, 3};
+        for (int i = 0; i &lt;arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+        System.out.println(&quot;-------------------------&quot;);
+
+        //调用方法, 反转数组
+        ReverseArray.reverse(arr);
+        for (int i = 0; i &lt;arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class ReverseArray {
+    int num1 = 10;
+    static int num2 = 20;
+
+    //静态方法中没有对象this，所以不能访问非静态成员
+    public static void show() {
+        //System.out.println(num1);
+        System.out.println(num2);
+    }
+
+
+    //需求：定义静态方法，反转数组中的元素
+    public static void reverse(int[] arr) {
+        /*
+            这里只需要完成: 交换元素的动作就可以了.
+            假设数组中的元素值为: int[] arr = {11, 22, 33, 44, 55};
+            明确谁和谁进行交换:
+                第一个元素11   和  最后一个元素55 交换
+                第二个元素22   和  倒数第二个元素44 交换
+                ...
+                arr[i]             arr[arr.length - 1 - i]
+
+            明确交换次数:
+                数组的长度/2
+         */
+        for (int i = 0; i &lt; arr.length / 2 ; i++) {
+            // arr[i] 和 arr[arr.length - 1 - i]进行交换
+            int temp = arr[i];
+            arr[i] = arr[arr.length - 1 - i];
+            arr[arr.length - 1 - i] = temp;
+        }
+    }
+}
+</code></pre>
+<h2 id="接口">接口</h2>
+<pre><code class="language-java】">/*接口：
+    就是提供的统一规则，规范。
+    定义格式：
+        interface 接口名{}
+        类和接口之间是实现关系，用关键字implements来表示
+        class 类名 implements 接口名{}
+ */
+public class Test {
+    public static void main(String[] args) {
+    //多态
+        Smoking sm = new Teacher();
+        sm.smoke();
+    }
+}
+</code></pre>
+<pre><code class="language-java">//接口，表示抽烟的功能
+public interface Smoking {
+    //成员方法
+    public abstract void smoke();
+}
+</code></pre>
+<pre><code class="language-java">//接口Smoking的实现类（子类）
+public class Teacher implements Smoking{
+
+    @Override
+    public void smoke() {
+        System.out.println(&quot;抽烟有害健康&quot;);
+    }
+}
+</code></pre>
+<h3 id="特点">特点</h3>
+<ul>
+<li>
+<p>普通类</p>
+<pre><code class="language-java">/*
+    接口创建对象的特点：
+        1. 接口不能实例化，需要创建其之类对象来完成实例化操作
+        2. 接口的之类，
+            如果是普通类，则必须重写接口中的所有抽象方法。
+            如果是抽象类，则不用重写接口中的抽象方法。
+        接口和类之间的关系：
+            类与类之间：
+                继承关系，只能单继承，不能多继承，但是可以多层继承
+            类与接口之间：
+                实现关系，可以单实现，也可以多实现
+            接口与接口之间：
+                继承关系，可以单继承，也可以多继承
+        总结：
+            对于一个类来讲，它的父类(继承的关系)中定义的都是：共性内容
+            对于一个类来讲，它的父接口(实现的关系)中定义的都是：扩展内容
+ */
+public class Test {
+    public static void main(String[] args) {
+    //测试鼠标类
+        USB usb = new Mouse();
+        usb.open();
+        usb.close();
+    }
+}
+</code></pre>
+<pre><code class="language-java">//接口， USB接口
+public interface USB {
+    //连接
+    public abstract void open();
+  
+    //断开
+    public abstract void close();
+}
+</code></pre>
+<pre><code class="language-java">//子类，鼠标类
+public class Mouse implements USB{
+    @Override
+    public void open() {
+        System.out.println(&quot;连接鼠标&quot;);
+    }
+  
+    @Override
+    public void close() {
+        System.out.println(&quot;断开鼠标连接&quot;);
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>抽象类</p>
+<pre><code class="language-java">//之类，键盘类
+public abstract class KeyBoard implements USB{
+}
+</code></pre>
+</li>
+<li>
+<p>多实现</p>
+<pre><code class="language-java">//子类，鼠标类
+public class Mouse implements USB,A,B{
+    @Override
+    public void open() {
+        System.out.println(&quot;连接鼠标&quot;);
+    }
+  
+    @Override
+    public void close() {
+        System.out.println(&quot;断开鼠标连接&quot;);
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>多继承</p>
+<pre><code class="language-java">public interface C extends A,B,USB{
+}
+</code></pre>
+</li>
+<li>
+<p>成员变量和成员方法</p>
+<pre><code class="language-java">/*
+    接口中的成员特点：
+        成员变量：
+            接口中只有成员常量，没有成员变量
+            原因是因为接口中所有的变量都有默认修饰符: public static final
+        成员方法：
+            JDK7及以前，只能定义抽象方法，
+            原因是所有方法都有默认修饰符： public abstract
+  
+            JDK8以后，可以有带方法体的方法了。
+            静态方法直接写，非静态方法要用default修饰
+  
+            JDK9以后，可以有私有方法了，直接写即可，
+        构造方法：
+            接口中没有构造方法。
+ */
+public class Test {
+    public static void main(String[] args) {
+        //测试接口中的成员常量
+        //USB.NUM = 20 ;    //这样写代码会报错，常量的值不能修改
+        System.out.println(USB.NUM);
+    }
+}
+</code></pre>
+<pre><code class="language-java">public interface USB {
+    //成员常量
+    public static final int NUM = 10;
+  
+    //成员方法
+    //JDK7及其以前的写法
+    public abstract void open();
+    public abstract void close();
+  
+    //JDK8多了两种写法
+    public static void method1(){
+        System.out.println(&quot;我是JDK8的新特性&quot;);
+    }
+    public default void method2(){
+        System.out.println(&quot;我是JDK8的新特性&quot;);
+    }
+  
+    //JDK9多了一种写法
+    private void method3(){
+        System.out.println(&quot;我是JDK9的新特性&quot;);
+    }
+}
+</code></pre>
+</li>
+</ul>
         </div>
         
         
@@ -1152,6 +1884,25 @@ public class Mouse extends Animal {
       <ul>
         <li><a href="#演示多态">演示多态</a></li>
         <li><a href="#使用场景">使用场景</a></li>
+        <li><a href="#测试多态关系中成员变量的使用">测试多态关系中，成员变量的使用</a></li>
+        <li><a href="#多态的好处与弊端-类型转换">多态的好处与弊端 类型转换</a></li>
+      </ul>
+    </li>
+    <li><a href="#抽象类">抽象类</a>
+      <ul>
+        <li><a href="#抽象类的特点">抽象类的特点</a></li>
+        <li><a href="#抽象类的构造方法">抽象类的构造方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#final关键字">final关键字</a></li>
+    <li><a href="#static关键字">static关键字</a>
+      <ul>
+        <li><a href="#static修饰成员方法">static修饰成员方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#接口">接口</a>
+      <ul>
+        <li><a href="#特点">特点</a></li>
       </ul>
     </li>
   </ul>
