@@ -50,7 +50,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://liu-moon.github.io/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_2.png">
 
 <meta name="description"
-  content="Eureka is a elegant and powerful theme for Hugo.">
+  content="Android学习">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,6 +79,7 @@
     },
     "headline": "Android | Quy\u0027s blog","datePublished": "2021-03-14T18:56:43+08:00",
     "dateModified": "2021-03-14T18:56:43+08:00",
+    "wordCount":  58 ,
     "publisher": {
         "@type": "Person",
         "name": "C. Wang",
@@ -87,7 +88,7 @@
             "url": "https://liu-moon.github.io/images/icon.png"
         }
         },
-    "description": "Eureka is a elegant and powerful theme for Hugo."
+    "description": "\u003ch1 id=\u0022android学习\u0022\u003eAndroid学习\u003c\/h1\u003e"
 }
 </script><meta property="og:title" content="Android | Quy&#39;s blog" />
 <meta property="og:type" content="article" />
@@ -101,7 +102,7 @@
 
 
 
-<meta property="og:description" content="" />
+<meta property="og:description" content="Android学习" />
 
 
 
@@ -202,7 +203,7 @@
 
 <div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
     <div
-        class="col-span-2 lg:col-start-2 lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
         <h1 class="font-bold text-3xl text-primary-text">Android</h1>
         <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
@@ -211,7 +212,7 @@
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>0 min read</span>
+        <span>1 min read</span>
     </div>
     
     
@@ -223,7 +224,73 @@
         
 
         <div class="content">
-            
+            <h1 id="android学习">Android学习</h1>
+<h2 id="ui文件路径">UI文件路径</h2>
+<pre><code>app&gt;src&gt;main&gt;res&gt;layout&gt;activity_main.xml
+</code></pre>
+<h2 id="加载xml">加载xml</h2>
+<pre><code>app&gt;src&gt;main&gt;java&gt;com&gt;example&gt;myapplication&gt;MainActivity.java
+</code></pre>
+<pre><code class="language-java">package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);	//这句加载xml
+    }
+}
+</code></pre>
+<h2 id="rjava存放id">R.java存放id</h2>
+<h2 id="view">View</h2>
+<h3 id="id">id</h3>
+<p>唯一标识</p>
+<pre><code>android:id=&quot;@+id/user&quot;
+</code></pre>
+<p>user是id值，前面是固定写法</p>
+<h3 id="background">background</h3>
+<p>背景</p>
+<p>​	可以是图片资源</p>
+<p>​	也可以颜色值</p>
+<pre><code>android:background=&quot;@mipmap/bg&quot;
+</code></pre>
+<p>需要先将bg.png/jpg保存在mipmap目录中</p>
+<pre><code>android:background=&quot;#FF6600&quot;
+</code></pre>
+<h3 id="padding">padding</h3>
+<p>设置上下左右四个方向内间距</p>
+<p><img src="https://i.loli.net/2021/03/18/wuNlo1Xnzk2Rvge.png" alt="image-20210318105138258"></p>
+<pre><code>android:padding=&quot;16dp&quot;
+</code></pre>
+<p>内间距全部为16dp</p>
+<pre><code>android:padding=&quot;@dimen/activity_margin&quot;
+</code></pre>
+<p>设置为属性资源变量</p>
+<p>若设置成不一样的</p>
+<p><img src="https://i.loli.net/2021/03/18/GDWzwNP3ZeOTjqs.png" alt="image-20210318105450149"></p>
+<h2 id="viewgroup">ViewGroup</h2>
+<p>控制View如何摆放（view：玻璃 viewgroup窗口框）</p>
+<p><img src="https://i.loli.net/2021/03/18/A7HRZx5Cz9rLmah.png" alt="image-20210318105859321"></p>
+<p><img src="https://i.loli.net/2021/03/18/dSPqoYswVtlTuH6.png" alt="image-20210318105913535"></p>
+<p><img src="https://i.loli.net/2021/03/18/TYUBAmnOSKugCcL.png" alt="image-20210318105932715"></p>
+<p><img src="https://i.loli.net/2021/03/18/NGzn2PKHQCx637U.png" alt="image-20210318105942100"></p>
+<h2 id="控制ui界面">控制ui界面</h2>
+<p><img src="https://i.loli.net/2021/03/18/tEf6AJpSkHIcYxL.png" alt="image-20210318110135066"></p>
+<p><img src="https://i.loli.net/2021/03/18/D5AolNMW6adZE3e.png" alt="image-20210318110305757"></p>
+<p><img src="https://i.loli.net/2021/03/18/Ogtx9cb2RmF7Uh4.png" alt="image-20210318110414668"></p>
+<pre><code>setContentView(R.layout.activity_main);
+</code></pre>
+<p>使用XML布局文件实现游戏的开始界面</p>
+<p><img src="https://i.loli.net/2021/03/19/W7PXw4jLODcGR2z.png" alt="image-20210319101653590"></p>
+<ul>
+<li>添加文本</li>
+<li>添加背景</li>
+</ul>
         </div>
         
         
@@ -244,6 +311,38 @@
     </div>
 </div>
 
+        
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">On This Page</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ui文件路径">UI文件路径</a></li>
+    <li><a href="#加载xml">加载xml</a></li>
+    <li><a href="#rjava存放id">R.java存放id</a></li>
+    <li><a href="#view">View</a>
+      <ul>
+        <li><a href="#id">id</a></li>
+        <li><a href="#background">background</a></li>
+        <li><a href="#padding">padding</a></li>
+      </ul>
+    </li>
+    <li><a href="#viewgroup">ViewGroup</a></li>
+    <li><a href="#控制ui界面">控制ui界面</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
         
     </div>
     
